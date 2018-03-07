@@ -1,6 +1,6 @@
 # File to contain overhead functions
 from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
+from nltk.stem import PorterStemmer, WordNetLemmatizer
 import string
 
 def clean_text(text, stop_words):
@@ -19,8 +19,13 @@ def clean_text(text, stop_words):
     text = word_tokenize(text)
     #text = ''.join([t for t in text if t not in stop_words])
 
-    # Convert words to 'root' word i.e. tenses
+    # STEM: Convert words to 'root' word i.e. tenses
     ps = PorterStemmer()
     text = [ps.stem(w) for w in text]
 
+    # LEMMANIZE: Convert words to base word i.e are-->be
+    lt = WordNetLemmatizer()
+    text = [lt.lemmatize(w) for w in text]
+
+    text = ' '.join(text)
     # TODO: remove "sparse" terms
