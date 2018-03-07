@@ -1,0 +1,27 @@
+################################################
+#
+# ECE 180 Final Project
+# Yelp Text Sentiment Analysis
+#
+# Authors:
+#
+#
+#
+################################################
+
+INTRODUCTION
+------------
+This file is to explain everything needed to run our implementation
+of sentiment analysis of text to predict the rating of a review. Our
+data is from the Yelp Dataset Challenge.
+
+FILES
+------------
+preprocess_data.py
+utilities.py
+
+REQUIREMENTS
+------------
+nltk
+pandas
+numpy
