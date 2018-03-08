@@ -5,8 +5,7 @@ import argparse
 import json
 import utilities as utils
 from nltk.corpus import stopwords
-
-
+import contractions_dict
 
 """This file is to pre-process the data"""
 parser = argparse.ArgumentParser()
@@ -26,22 +25,27 @@ def load_businesses():
             line = line.lower()
             business_info = json.loads(line)
             if 'food' in business_info['categories']:
-                business_info.update(line_data['business_id'])
+                businesses.add(business_info['business_id'])
+    print('Total Number of Businesses: %d' %len(businesses))
     return businesses
 
 def load_reviews():
     stop_words = set(stopwords.words('english'))
+    contractions = contractions_dict.contractions
     businesses = load_businesses()
     review_text = []
     review_star = []
     with open(args.review_data, 'r') as f:
+        i = 0
         for line in f:
+            
             line = line.lower()
             review_info = json.loads(line)
             try:
+
                 if review_info['business_id'] not in businesses:
                     continue
-
+                i+=1
                 # Check first if review has star rating and text
                 # TODO: filter out diff languages???
                 star = review_info['stars']
@@ -50,13 +54,15 @@ def load_reviews():
                 assert text is not None
 
                 text = utils.clean_text(text)
+                print(text)
                 review_text.append(text)
                 review_star.append(star)
 
             # Key errors, assertion errors, etc. 
             except:
                 continue
-
+    print(i)
+    print("Total Number of Reviews: %d" %len(review_star))
     return review_text, review_star
 
 
