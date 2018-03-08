@@ -1,9 +1,26 @@
-# File to contain overhead functions
+import contractions_dict
+
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import string
-import contractions_dict
 import pickle
+import collections
+import json
+import numpy as np
+
+
+# Get businesses which only have 'food' in categories
+def load_businesses(filename):
+    businesses = set()
+    with open(filename, 'r') as f:
+        for line in f:
+            line = line.lower()
+            business_info = json.loads(line)
+            if 'food' in business_info['categories']:
+                businesses.add(business_info['business_id'])
+    print('Total Number of Businesses: %d' %len(businesses))
+    return businesses
+
 
 def clean_text(text, stop_words):
     assert isinstance(text, str)
@@ -34,37 +51,55 @@ def clean_text(text, stop_words):
 
     text = ' '.join(text)
 
-    return text
-
     '''
     # LEMMANIZE: Convert words to base word i.e are-->be
     lt = WordNetLemmatizer()
     text = [lt.lemmatize(w) for w in text]
     
     '''
+    return text
 
-    # TODO: remove "sparse" terms
+def reduce_vocab(review_text, min_freq):
+    assert isinstance(review_text,list)
 
-def pickle_files(filename, stuff):
-    '''
-    Save files to be loaded in the future
-    :param filename: name of file to save
-    :type filename: str
-    :param stuff: Datastructure to be saved
-    :return: None
-    '''
-    with open(filename, 'wb') as f:
-        pickle.dump(stuff, f)
+    all_words = ' '.join(review_text)
+    words = word_tokenize(all_words)
+
+    word_count = collections.Counter()
+    for w in words:
+        word_count[w] += 1
+
+    reduced_vocab = [w for w in word_count if word_count[w] > min_freq]
+
+    return reduced_vocab
+
+def text_length_stats(review_text):
+    assert isinstance(review_text,list)
 
 
-def load_files(filename):
-    '''
-    Load files from pickle
-    :param filename: name of pickle to load
-    :type filename: str
-    :return: None
-    '''
-    saved_stuff = open(filename,"rb")
-    stuff = pickle.load(saved_stuff)
-    saved_stuff.close()
-    return stuff
+    length_reviews = np.zeros((len(review_text),1)) #to calc AVG/STD
+    for i in range(len(review_text)):
+        text = word_tokenize(review_text[i])
+        length_reviews[i] = len(text)
+    return np.mean(length_reviews), np.std(length_reviews)
+
+def reshape_text(text, length):
+    assert isinstance(text,str)
+    assert isinstance(length,int)
+
+    new_text = ['0']*length
+
+    words = word_tokenize(text)
+    if len(words) < length:
+        new_text[:len(words)] = words[:]
+    elif len(words) > length:
+        new_text[:length] = words[:length]
+
+    new_text = ' '.join(new_text)
+    return new_text
+
+    
+
+    
+
+

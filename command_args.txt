@@ -1,0 +1,5 @@
+business_data: ./dataset/business.json
+review_data: ./dataset/review.json
+num_reviews: 300000
+processed_review_file: ./dataset/processed_data/processed_reviews_first300000_reshaped.p
+min_freq: 10

@@ -1,89 +1,103 @@
+import utilities as utils
+import logger
 
 import pandas as pd
 import numpy as np
 import argparse
 import json
-import utilities as utils
 from nltk.corpus import stopwords
 import datetime
 import tqdm
 
 """This file is to pre-process the data"""
-parser = argparse.ArgumentParser()
-parser.add_argument("-b", "--business_data", default='./dataset/business.json')
-parser.add_argument("-r", "--review_data", default='./dataset/review.json')
-parser.add_argument("-u", "--user_data", default='./dataset/user.json')
-parser.add_argument("-s", "--save_name", default='./dataset/processed_data/' + \
-    ('{:%b_%d_%H:%M}'.format(datetime.datetime.now())))
 
+# Read in arguments from 'command_args.txt'
+args = logger.read_args('command_args.txt')
 
-# read in arguments from the commandline
-args = parser.parse_args()
-
-
-def load_businesses():
-    businesses = set()
-    with open(args.business_data, 'r') as f:
-        for line in f:
-            line = line.lower()
-            business_info = json.loads(line)
-            if 'food' in business_info['categories']:
-                businesses.add(business_info['business_id'])
-    print('Total Number of Businesses: %d' %len(businesses))
-    return businesses
-
+# Load reviews and perform some preprocessing
 def load_reviews():
-    stop_words = set(stopwords.words('english'))
-    businesses = load_businesses()
-    data = []
-    counter = 0
+    businesses = utils.load_businesses(args.business_data)
+    review_text = []
+    review_star = []
     with open(args.review_data, 'r') as f:
-        for line in f:#tqdm(f):
+        counter = 0
+        for line in f:
             line = line.lower()
             review_info = json.loads(line)
             try:
-
                 if review_info['business_id'] not in businesses:
                     continue
-                # Check first if review has star rating and text
+                
                 # TODO: filter out diff languages???
-                counter += 1
+
+                # Check first if review has star rating and text
                 star = review_info['stars']
                 text = review_info['text']
                 assert star is not None
                 assert text is not None
 
-                text = utils.clean_text(text,stop_words)
-                data.append((text,star))
+                review_text.append(text)
+                review_star.append(star)
+                counter += 1
 
-                if counter%10000 == 0:
-                    print("Counter: %d"%counter)
-                    print(text)
-                if (counter%300000 == 0):
-                    print("Pickling files...")
-                    pickle_name = './dataset/processed_data/'+args.save_name+'.p'
-                    utils.pickle_files(pickle_name, data)
-                    print("Done pickling")
-                    break
+                if (counter >= args.num_reviews):
+                    return  review_text,review_star
 
-            # Key errors, assertion errors, etc. 
             except KeyError:
                 continue
             except AssertionError:
                 continue
 
-        #utils.pickle_file(args.save_name+'.p', data)
+# Clean syntax of the reviews
+def clean_reviews(review_text):
+    stop_words = set(stopwords.words('english'))
+    review_text_cleaned = []
 
-    print("Total Number of Reviews: %d" %len(data))
-    #return review_text, review_star
+    counter = 0
+    for review in review_text:
+        text = utils.clean_text(review,stop_words)
+        review_text_cleaned.append(text)
+        counter += 1
+        if counter%10000 == 0:
+            print("Reviews Cleaned: %d"%counter)
+            print(text)
+    return review_text_cleaned
+
+# Remove sparse words
+def reduce_reviews(review_text):
+    vocab = utils.reduce_vocab(review_text,args.min_freq)
+
+    review_text_cleaned = []
+    for review in review_text:
+        r = [w for w in review.split() if w in vocab]
+        review_text_cleaned.append(' '.join(r))
+
+    return review_text_cleaned
+
+#Truncate or pad reviews
+def reshape_reviews(review_text):
+    avg,std = utils.text_length_stats(review_text)
+
+    #review_length = int(avg + std)
+    review_length = int(avg)
+
+    review_text_reshaped = []
+    for review in review_text:
+        r = utils.reshape_text(review,review_length)
+        review_text_reshaped.append(r)
+    return review_text_reshaped
 
 
 def main():
-    load_reviews()
-    #json_to_csv(args.review_data)
-    #json_to_csv(args.user_data)
+    review_text,review_star = load_reviews()
+    review_text_cleaned = clean_reviews(review_text)
+    review_text_reduced = reduce_reviews(review_text_cleaned)
+    review_text_reshaped = reshape_reviews(review_text_reduced)
 
+
+    print("Pickling files...")
+    logger.pickle_files(args.processed_review_file,review_text_reshaped)
+    print("Pickling done :)")
 
 if __name__=="__main__":
-    #json.loads(args.business_data)
     main()
