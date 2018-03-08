@@ -96,7 +96,8 @@ def main():
 
 
     print("Pickling files...")
-    logger.pickle_files(args.processed_review_file,review_text_reshaped)
+    logger.pickle_files(args.processed_review_text,review_text_reshaped)
+    logger.pickle_files(args.processed_review_star,review_star)
     print("Pickling done :)")
 
 if __name__=="__main__":
