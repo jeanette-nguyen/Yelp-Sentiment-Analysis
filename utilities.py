@@ -3,6 +3,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import string
 import contractions_dict
+import pickle
 
 def clean_text(text, stop_words):
     assert isinstance(text, str)
@@ -31,11 +32,39 @@ def clean_text(text, stop_words):
     ps = PorterStemmer()
     text = [ps.stem(w) for w in text]
 
-    # LEMMANIZE: Convert words to base word i.e are-->be
-    lt = WordNetLemmatizer()
-    text = [lt.lemmatize(w) for w in text]
-
     text = ' '.join(text)
 
     return text
+
+    '''
+    # LEMMANIZE: Convert words to base word i.e are-->be
+    lt = WordNetLemmatizer()
+    text = [lt.lemmatize(w) for w in text]
+    
+    '''
+
     # TODO: remove "sparse" terms
+
+def pickle_files(filename, stuff):
+    '''
+    Save files to be loaded in the future
+    :param filename: name of file to save
+    :type filename: str
+    :param stuff: Datastructure to be saved
+    :return: None
+    '''
+    with open(filename, 'wb') as f:
+        pickle.dump(stuff, f)
+
+
+def load_files(filename):
+    '''
+    Load files from pickle
+    :param filename: name of pickle to load
+    :type filename: str
+    :return: None
+    '''
+    saved_stuff = open(filename,"rb")
+    stuff = pickle.load(saved_stuff)
+    saved_stuff.close()
+    return stuff
