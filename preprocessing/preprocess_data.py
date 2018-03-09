@@ -1,5 +1,5 @@
-import utilities as utils
-import logger
+import pp_utilities as utils
+import pp_logger as logger
 
 import pandas as pd
 import numpy as np
@@ -12,7 +12,7 @@ import tqdm
 """This file is to pre-process the data"""
 
 # Read in arguments from 'command_args.txt'
-args = logger.read_args('command_args.txt')
+args = logger.read_args('pp_args.txt')
 
 # Load reviews and perform some preprocessing
 def load_reviews():
