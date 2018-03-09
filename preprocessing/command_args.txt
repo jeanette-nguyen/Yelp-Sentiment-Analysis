@@ -1,6 +1,6 @@
-business_data: ./dataset/business.json
-review_data: ./dataset/review.json
+business_data: ../dataset/business.json
+review_data: ../dataset/review.json
 num_reviews: 300000
-processed_review_text: ../dataset/processed_data/first300000_text.p
-processed_review_star: ../dataset/processed_data/first300000_star.p
+processed_review_text: ./processed_data/first300000_std_text.p
+processed_review_star: ./processed_data/first300000_std_star.p
 min_freq: 10
