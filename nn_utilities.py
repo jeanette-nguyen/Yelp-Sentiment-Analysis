@@ -2,7 +2,6 @@ import torch
 import torch.utils.data
 from torch.autograd import Variable
 
-from nltk.tokenize import word_tokenize
 import random
 
 def split_data(x,y):
@@ -20,7 +19,7 @@ def word2int(review_text):
     assert isinstance(review_text, list)
 
     all_text = ' '.join(review_text)
-    words = word_tokenize(all_text)
+    words = all_text.split(' ')
     word2int = dict((a, b) for b, a in enumerate(list(set(words))))
     return word2int
 
@@ -30,7 +29,7 @@ def text2numbers(text, word2int):
 
     encoded_text = []
     for t in text: 
-        words = word_tokenize(t)
+        words = t.split(' ')
         words_int = list(map(lambda x: word2int[x], words))
         encoded_text.append(words_int)
     return encoded_text
