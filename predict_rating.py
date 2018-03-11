@@ -81,7 +81,7 @@ def main():
     word2int = utils.word2int(review_text)
     data_x = utils.text2numbers(review_text,word2int)
     data_y = logger.load_files(args.data_star_file)
-    train,valid,test = utils.split_data(data_x,data_y)
+    train_data,valid_data,test_data = utils.split_data(data_x,data_y)
 
     #Model
     model = lstm.LSTM(args.batch_size, len(word2int), embedding_dim=args.embedding_dim, 
