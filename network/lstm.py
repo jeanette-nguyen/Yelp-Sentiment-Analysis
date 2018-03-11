@@ -69,24 +69,4 @@ class LSTM(nn.Module):
         word_out = self.dense(out.view(self.batch_size,-1,self.hidden_units))
         self.hidden = hidden_out
         return word_out
-'''
-    def forward(self,x):
-        lstm_out,self.hidden=self.lstm(
-            x,self.hidden
-        )
-        cls_scores=self.hidden2class(lstm_out[:,-1,:]).view(-1,self.target_size)
-        if self.is_softmax:
-            cls_scores=F.log_softmax(cls_scores)
-        return cls_scores
 
-
-    def forward(self,x):
-        lstm_out,self.hidden_out=self.lstm(
-            x,self.hidden
-        )
-        cls_scores=self.hidden2class(self.dropout(lstm_out[:,-1,:])).view(-1,self.target_size)
-        if self.is_softmax:
-            cls_scores=self.log_softmax(cls_scores)
-        self.hidden=self.init_hidden(self.hidden_out)
-        return cls_scores
-'''
