@@ -9,8 +9,8 @@ num_units: 100
 drop_out: 0.1
 max_epochs: 100000
 learning_rate: 0.001
-data_text_file: ./preprocessing/processed_data/first300000_std_text.p
-data_star_file: ./preprocessing/processed_data/first300000_std_star.p
+data_text_file: ./preprocessing/processed_data/first100000_std_text.p
+data_star_file: ./preprocessing/processed_data/first100000_std_star.p
 optim: Adam
 training: True
 save_model_file: ./saves/checkpoint-1.pth.tar
