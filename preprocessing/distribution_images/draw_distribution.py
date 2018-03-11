@@ -60,14 +60,24 @@ def main():
     plt.ylabel("rating numbers")
     plt.title("yelp rating distribution")
     plt.show()
-
-    text_length = []
-    for text in review_text:
-        text_length.append(len(text))
-    plt.hist(text_length, alpha=0.5)
-    plt.xlabel("review text length")
-    plt.ylabel("review text length counts")
-    plt.title("yelp review text length distribution")
+    import re
+    text_words = []
+    for idx in range(len(review_text)):
+        words = re.split('\W+', review_text[idx])
+        text_words.append(0)
+        #print len(words)
+        for word in words:
+            if len(word) != 0:
+                text_words[idx] += 1
+    #print len(text_words)
+    for i in range(10):
+        print text_words[i]
+        print review_text[i]
+        print "*"*100
+    plt.hist(text_words, alpha=0.5)
+    plt.xlabel("review text word numbers")
+    plt.ylabel("word number counts distribution")
+    plt.title("yelp review number of words distribution")
     plt.show()
 
 
