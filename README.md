@@ -13,5 +13,14 @@ This project requires **Python 3.6** and the following library installations:
 - [ArgParse](https://pypi.python.org/pypi/argparse)
  - [Jupyter Notebook](http://jupyter.org/) If you would like to run and execute the project through a notebook.
  
+
+ 
  ### Preprocessing the Data
+ #### Code
+ Code is provided in the following files:
+ - preprocessing/contractions_dict.py
+ - preprocessing/pp_logger.py
+ - preprocessing/pp_utilities.py
+ - preprocessing/preprocess_data.py
+ 
  
