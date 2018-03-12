@@ -1,4 +1,5 @@
 # Yelp-Sentiment-Analysis
+Team 9
 
 ### Project Overview
 Sentiment Analysis has become an important field in Machine Learning. Sentiment analysis pertains to the feelings(attitudes, emotions, opinions, etc.) towards certain products or ideas. Through sentiment analysis, companies can gain an insight of the wider public opinion on certain topics and act accordingly.
