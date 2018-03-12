@@ -90,7 +90,7 @@ def reshape_text(text, length):
     new_text = ['0']*length
 
     words = word_tokenize(text)
-    if len(words) < length:
+    if len(words) <= length:
         new_text[:len(words)] = words[:]
     elif len(words) > length:
         new_text[:length] = words[:length]

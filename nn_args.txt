@@ -2,7 +2,7 @@ num_outputs: 6
 num_review: 100000
 split_pct: 0.15
 check_loss: 100
-batch_size: 16
+batch_size: 4
 embedding_dim: 300
 num_layers: 1
 num_units: 100

@@ -31,8 +31,8 @@ def train(model, train_data, valid_data, criterion, optimizer, word2int):
     dataset_train = utils.load_dataset(train_data)
     dataset_valid = utils.load_dataset(valid_data)
 
-    loader_train = torch.utils.data.DataLoader(dataset_train, batch_size=args.batch_size, shuffle=True)
-    loader_valid = torch.utils.data.DataLoader(dataset_train, batch_size=args.batch_size, shuffle=False)
+    loader_train = torch.utils.data.DataLoader(dataset_train, batch_size=args.batch_size, shuffle=True,num_workers=4)
+    loader_valid = torch.utils.data.DataLoader(dataset_train, batch_size=args.batch_size, shuffle=False,num_workers=4)
 
     losses = {'train': [], 'valid': []}
     for epoch in range(args.max_epochs):
@@ -48,6 +48,7 @@ def train(model, train_data, valid_data, criterion, optimizer, word2int):
             loss.backward(retain_graph=True)
             #loss.backward()
             optimizer.step()
+            print('Batch {}done\r'.format(batch),end='')
         losses['train'].append(curr_train_loss)
 
         # Check validation loss after specified number of epochs
@@ -99,7 +100,7 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
     if args.training.lower()=='true': 
-        train(model, train_data, valid_data, criterion, optimizer, word2int)
+        _, _ = train(model, train_data, valid_data, criterion, optimizer, word2int)
     else:
         model, optimizer, epoch, losses = utils.load_model(model,optimizer,gpu,args.save_model_file)
 
