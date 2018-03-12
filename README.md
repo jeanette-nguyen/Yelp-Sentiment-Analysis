@@ -57,7 +57,7 @@ Code is provided in the main folder in the following files:
 - *data_text_file:* ./preprocessing/processed_data/first100000_std_text.p
 - *data_star_file:* ./preprocessing/processed_data/first100000_std_star.p
 - *optim:* specify which optimization technique to use (only the [Adam optimizer](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/) was implemented
-- **training:** indicate whether the model needs to be trained
+- **_training:_** indicate whether the model needs to be trained
 - **save_model_file:** path where to save the model
 - **losses_file:** path where to save the losses
 
