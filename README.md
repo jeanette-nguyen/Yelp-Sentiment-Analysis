@@ -17,10 +17,10 @@ This project requires **Python 3.6** and the following library installations:
  
  ### Preprocessing the Data
  #### Code
- Code is provided in the following files:
- - preprocessing/contractions_dict.py
- - preprocessing/pp_logger.py
- - preprocessing/pp_utilities.py
- - preprocessing/preprocess_data.py
+ Code is provided in the `preprocessing` folder in the following files:
+ - contractions_dict.py
+ - pp_logger.py
+ - pp_utilities.py
+ - preprocess_data.py
  
  
