@@ -23,6 +23,11 @@ if gpu:
 def train(model, train_data, valid_data, criterion, optimizer, word2int):
     global temp_x
     global temp_y
+
+    # Convert model to cuda if needed
+    if gpu:
+        model = model.cuda()
+
     dataset_train = utils.load_dataset(train_data)
     dataset_valid = utils.load_dataset(valid_data)
 
@@ -33,7 +38,6 @@ def train(model, train_data, valid_data, criterion, optimizer, word2int):
     for epoch in range(args.max_epochs):
         curr_train_loss = 0
         for batch,data in enumerate(loader_train):
-            print(batch)
             X, y = utils.make_variable(data,gpu)
             temp_x = X
             temp_y = y
