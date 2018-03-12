@@ -44,7 +44,9 @@ Code is provided in the main folder in the following files:
 - nn_logger.py
 
 #### How to Run
-```$ python3 predict_rating.py```
+```
+$ python3 predict_rating.py
+```
 
 ##### Parameters
 Parameters are given in the `nn_args.txt` file. These parameters are:
