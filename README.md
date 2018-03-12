@@ -43,21 +43,21 @@ Code is provided in the main folder in the following files:
 #### How to Run
 ##### Parameters
 - Parameters are given in the `nn_args.txt` file. These parameters are:
-- num_outputs: number of outputs for the model (since labels are 1-5, there are "6" outputs for the "0" class
-- num_review: how many reviews to use of the dataset
-- split_pct: percentage of the reviews to be used for training and validation
-- check_loss: number of epochs before checking the validation loss 
-- batch_size: number of training examples per forward/backward pass
-- embedding_dim: embedding dimension
-- num_layers: number of layers for the LSTM network
-- num_units: number of units per layer
-- drop_out: percentage of units used to incorporate [dropout](https://en.wikipedia.org/wiki/Dropout_(neural_networks))
-- max_epochs: maximum number of epochs for the model to train
-- learning_rate: learning rate for the model
-- data_text_file: ./preprocessing/processed_data/first100000_std_text.p
-- data_star_file: ./preprocessing/processed_data/first100000_std_star.p
-- optim: specify which optimization technique to use (only the [Adam optimizer](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/) was implemented
-- training: indicate whether the model needs to be trained
-- save_model_file: path where to save the model
-- losses_file: path where to save the losses
+- *num_outputs:* number of outputs for the model (since labels are 1-5, there are "6" outputs for the "0" class
+- *num_review:* how many reviews to use of the dataset
+- *split_pct:* percentage of the reviews to be used for training and validation
+- *check_loss:* number of epochs before checking the validation loss 
+- *batch_size:* number of training examples per forward/backward pass
+- *embedding_dim:* embedding dimension
+- *num_layers:* number of layers for the LSTM network
+- *num_units:* number of units per layer
+- *drop_out:* percentage of units used to incorporate [dropout](https://en.wikipedia.org/wiki/Dropout_(neural_networks))
+- *max_epochs:* maximum number of epochs for the model to train
+- *learning_rate:* learning rate for the model
+- *data_text_file:* ./preprocessing/processed_data/first100000_std_text.p
+- *data_star_file:* ./preprocessing/processed_data/first100000_std_star.p
+- *optim:* specify which optimization technique to use (only the [Adam optimizer](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/) was implemented
+- *training:* indicate whether the model needs to be trained
+- *save_model_file:* path where to save the model
+- *losses_file:* path where to save the losses
 
