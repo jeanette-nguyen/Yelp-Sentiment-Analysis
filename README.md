@@ -25,7 +25,9 @@ Code is provided in the `preprocessing` folder in the following files:
 - contractions_dict.py
 
 #### How to Run
-```$ python3 preprocess_data.py```
+```
+$ python3 preprocess_data.py
+```
 
 ##### Parameters
 Parameters are given in the `pp_args.txt` file in the `preprocessing` folder. These parameters are:
