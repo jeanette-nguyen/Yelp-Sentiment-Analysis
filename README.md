@@ -7,7 +7,7 @@ Sentiment Analysis has become an important field in Machine Learning. Sentiment 
 In this project, we explore the [Yelp Dataset](https://www.yelp.com/dataset/challenge), provided by Yelp.
 
 ### Dependencies
-This project requires **Python 3.6** and the following installations:
+This project requires **Python 3.6** and the following library installations:
 -[PyTorch](http://pytorch.org/)
 -[Natural Language Toolkit](https://www.nltk.org/)
 -[ArgParse](https://pypi.python.org/pypi/argparse)
