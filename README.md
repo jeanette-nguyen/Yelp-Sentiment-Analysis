@@ -24,6 +24,8 @@ Code is provided in the `preprocessing` folder in the following files:
 - contractions_dict.py
 
 #### How to Run
+`python3 preprocess_data.py`
+
 ##### Parameters
 Parameters are given in the `pp_args.txt` file in the `preprocessing` folder. These parameters are:
 - **_business_data:_** path of `business.json` file containing business data (attributes, categories, etc.)
@@ -41,8 +43,10 @@ Code is provided in the main folder in the following files:
 - nn_logger.py
 
 #### How to Run
+`python3 predict_rating.py`
+
 ##### Parameters
-- Parameters are given in the `nn_args.txt` file. These parameters are:
+Parameters are given in the `nn_args.txt` file. These parameters are:
 - **_num_outputs:_** number of outputs for the model (since labels are 1-5, there are "6" outputs for the "0" class
 - **_num_review:_** how many reviews to use of the dataset
 - **_split_pct:_** percentage of the reviews to be used for training and validation
