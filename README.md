@@ -23,4 +23,11 @@ This project requires **Python 3.6** and the following library installations:
  - pp_utilities.py
  - preprocess_data.py
  
+ ### Predicting Rating
+ #### Code
+ Code is provided in the main folder in the following files:
+ - predict_rating.py
+ - nn_utilities.py
+  - nn_logger.py
+  
  
